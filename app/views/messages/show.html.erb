@@ -10,6 +10,7 @@
  <ul>
   <!--<%= debug @tsubyaki_items %>-->
       <% @mess.each do |mess| %>
+
 <% if  mess.to_snsstudy_id==@snsstudy.id || mess.snsstudy_id == @snsstudy.id %>
       <li>
 
@@ -32,3 +33,5 @@
   <% unless current_user?(@snsstudy) %>
    <p>●<%= @snsstudy.name %>さんへのメッセージ</p>
   <% end %>
+
+    
