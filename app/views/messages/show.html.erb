@@ -32,6 +32,7 @@
   <!--メッセージ投稿フォーム-->
   <% unless current_user?(@snsstudy) %>
    <p>●<%= @snsstudy.name %>さんへのメッセージ</p>
+   <%= render 'form' %>
   <% end %>
 
     

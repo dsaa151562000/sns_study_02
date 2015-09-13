@@ -5,6 +5,8 @@ class MessagesController < ApplicationController
   end
 
   def show
+
+  @message = Message.new
    @snsstudy = Snsstudy.find(params[:id])
    @c_user=current_user
 
@@ -18,7 +20,6 @@ else
 end
 
 #@mess = Message.includes(:snsstudy).where('snsstudies.id  IN (?,?)', @snsstudy,@c_user).where('snsstudies.id  IN (?,?)', @c_user,@snsstudy).order(:created_at).references(:snsstudy)
-
 
 
 
@@ -41,9 +42,14 @@ end
 
   def new
 
+       @message = Message.new
+
   end
 
   def create
+
+     @message = Message.new(messages_params)
+     @message.save
 
   end
 
@@ -58,4 +64,11 @@ end
   def destroy
 
   end
+
+    private
+
+     def messages_params
+      #params.require(:snsstudy).permit(:name, :introduction)
+      params.require(:message).permit(:messe, :snsstudy_id, :to_snsstudy_id)
+    end
 end
