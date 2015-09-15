@@ -48,6 +48,7 @@ end
 
   def create
 
+<<<<<<< HEAD
 
 
      @message = Message.new(messages_params)
@@ -62,6 +63,12 @@ end
       redirect_to :back 
       end
    end
+=======
+     @message = Message.new(messages_params)
+     @message.save
+
+  end
+>>>>>>> 8481cb1a9cd71a4da2e589a4e2ea44dd44b348bf
 
   def edit
 
