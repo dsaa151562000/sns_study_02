@@ -1,0 +1,38 @@
+<p><%= current_user.name %>さんが現在サインインしています</p>
+ <p><%= current_user.id %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @snsstudy.name %>さんのメッセージボードです。
+</p>
+
+
+ <ul>
+  <!--<%= debug @tsubyaki_items %>-->
+      <% @mess.each do |mess| %>
+
+<% if  mess.to_snsstudy_id==@snsstudy.id || mess.snsstudy_id == @snsstudy.id %>
+      <li>
+
+      <span><%= mess.snsstudy.name %></span>
+      <span><%= mess.to_snsstudy_id %></span>
+        「<span><%= mess.messe %></span>」
+       
+     <!--<% p mess %> ターミナルに結果--> 
+      </li>
+  <% else %>
+
+    <% end %>
+
+      <% end %>
+  </ul>
+
+
+
+  <!--メッセージ投稿フォーム-->
+  <% unless current_user?(@snsstudy) %>
+   <p>●<%= @snsstudy.name %>さんへのメッセージ</p>
+   <%= render 'form' %>
+  <% end %>
+
+    

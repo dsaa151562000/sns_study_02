@@ -1,0 +1,113 @@
+<p id="notice"><%= notice %></p>
+
+
+<!--<%= debug current_user?(@snsstudy) %>-->
+<!--<%= debug current_user %>-->
+<div>
+ <% if signed_in? %>
+            <p><%= current_user.name %>さんが現在サインインしています</p>
+            
+            <% if current_user?(@snsstudy) %>
+            <%= link_to "Sign out", signout_path, method: "delete" %>
+            <% end %>
+
+          <% else %>
+          <p>現在サインアウトしました</p>
+ <% end %>
+</div>
+
+
+
+
+<p>
+  <strong>Name:</strong>
+  <%= @snsstudy.name %>
+</p>
+
+<p>
+  <strong>Introduction:</strong>
+  <%= @snsstudy.introduction %>
+</p>
+
+
+
+
+<ul>
+    <li>
+    フォローしている<%= @snsstudy.followed_users.count %>人
+    </li>
+    
+    <li>
+    フォローワー<%= @snsstudy.followers.count %>人
+    </li>
+    
+</ul>
+
+<br>
+
+<!--current_user? サインインしているユーザーなら -->
+<% if current_user?(@snsstudy) %>
+  <%= form_for(@tsubyaki) do |f| %>
+  <%= hidden_field_tag "snsstudy[id]", current_user.id %>
+  <div class="field">
+    <%= f.text_area :content, placeholder: "新しいつぶやき..." %>
+  </div>
+  <%= f.submit "つぶやき", class: "btn btn-large btn-primary" %>
+<% end %>
+<% else %>
+
+<% end %>
+
+<br>
+
+<!--=========================================================================-->
+
+<% unless current_user?(@snsstudy) %>
+  <div>
+  <% if current_user.following?(@snsstudy) %>
+
+    <%= @snsstudy.name %>さんをフォロー解除
+    <%= form_for(current_user.relationships.find_by(followed_id: @snsstudy.id),html: { method: :delete }) do |f| %>
+    <%= hidden_field_tag "snsstudy[id]", current_user.id %>
+    <%= f.submit "フォロー解除", class: "btn btn-large" %>
+    <% end %>
+
+  <% else %>
+
+    <%= @snsstudy.name %>さんをフォローする
+    <%= form_for(current_user.relationships.build(followed_id: @snsstudy.id)) do |f| %>
+    <!-- ==== ネストしたルーティング /snsstudy/1/relationships ====  -->
+    <%= f.hidden_field :followed_id %><!--relationship[followed_id] type="hidden" value="2"-->
+    <%= hidden_field_tag "snsstudy[id]", current_user.id %>
+    <%= f.submit "フォローする", class: "btn btn-large" %>
+    <% end %>
+
+  <% end %>
+  </div>
+<% end %>
+<!--=========================================================================-->
+
+<br>
+
+<!--=========つぶやき================================================================-->
+<div>
+  <% if @snsstudy.tsubyakis.any? %>
+    <h3>つぶやき (<%= @tsubyaki_items.count %>)</h3>
+  <ul>
+  <!--<%= debug @tsubyaki_items %>-->
+      <% @tsubyaki_items.each do |tsubyakis| %>
+      <li>
+       <span><%= tsubyakis.snsstudy.name %></span>
+        <span><%= tsubyakis.content %></span>
+      </li>
+      <% end %>
+  </ul>
+<%= will_paginate @tsubyakis %>
+  <% end %>
+
+</div>
+<!--=========================================================================-->
+
+
+<%= link_to 'Edit', edit_snsstudy_path(@snsstudy) %> |
+<%= link_to 'Back', snsstudies_path %>
