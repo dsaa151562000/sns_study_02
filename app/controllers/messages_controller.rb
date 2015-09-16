@@ -71,4 +71,6 @@ end
       #params.require(:snsstudy).permit(:name, :introduction)
       params.require(:message).permit(:messe, :snsstudy_id, :to_snsstudy_id)
     end
+
+
 end
