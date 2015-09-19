@@ -23,6 +23,15 @@ class Snsstudy < ActiveRecord::Base
 
 
  has_secure_password
+before_create :create_remember_token
+
+#emailの大文字入力を小文字へ変換
+ before_save { self.email = email.downcase }
+ validates :name, presence: true, length: { maximum: 50 }
+ VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+ #大文字と小文字を区別するか case_sensitive false
+ validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: { case_sensitive: false }
+
 
 #自分自身とフォーローした人のつぶやき
  def tsubyaki_matome

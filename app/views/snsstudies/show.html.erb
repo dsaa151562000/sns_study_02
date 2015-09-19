@@ -5,7 +5,7 @@
 <!--<%= debug current_user %>-->
 <div>
  <% if signed_in? %>
-            <p><%= current_user.name %>さんが現在サインインしています</p>
+            <p><%= current_user.name %>さん、こんにちわ</p>
             
             <% if current_user?(@snsstudy) %>
             <%= link_to "Sign out", signout_path, method: "delete" %>
@@ -20,8 +20,8 @@
 
 
 <p>
-  <strong>Name:</strong>
-  <%= @snsstudy.name %>
+  <h3>
+  <%= @snsstudy.name %>さんのページ</h3>
 </p>
 
 <p>
@@ -49,6 +49,7 @@
 <% if current_user?(@snsstudy) %>
   <%= form_for(@tsubyaki) do |f| %>
   <%= hidden_field_tag "snsstudy[id]", current_user.id %>
+  
   <div class="field">
     <%= f.text_area :content, placeholder: "新しいつぶやき..." %>
   </div>
@@ -106,6 +107,18 @@
   <% end %>
 
 </div>
+<!--=========================================================================-->
+
+<!--=========メッセのやり取りをする================================================================-->
+
+<% unless current_user?(@snsstudy) %>
+<%= link_to message_path(@snsstudy) do %>
+<strong><%= @snsstudy.name %>
+<%= "さんとメッセージのやり取りをする" %></strong>
+<% end %>
+<% end %>
+<br><br>
+
 <!--=========================================================================-->
 
 
