@@ -1,3 +1,6 @@
+
+
+
 <p><%= current_user.name %>さんが現在サインインしています</p>
  <p><%= current_user.id %></p>
 
@@ -11,7 +14,8 @@
   <!--<%= debug @tsubyaki_items %>-->
       <% @mess.each do |mess| %>
 
-<% if  mess.to_snsstudy_id==@snsstudy.id || mess.snsstudy_id == @snsstudy.id %>
+<% if  @snsstudy_id.include?(mess.snsstudy_id) && @to_snsstudy_id.include?(mess.to_snsstudy_id) %>
+
       <li>
 
       <span><%= mess.snsstudy.name %></span>
@@ -35,4 +39,11 @@
    <%= render 'form' %>
   <% end %>
 
+  <!--  <p><%= link_to 'Show',@snsstudy %></p>-->
+
+ <%= link_to @snsstudy do %>
+<strong><%= @snsstudy.name %>
+<%= "さんのページ" %></strong>
+<% end %>
     
+
