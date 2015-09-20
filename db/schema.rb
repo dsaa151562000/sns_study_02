@@ -13,15 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150830074131) do
 
-<<<<<<< HEAD
+
   create_table "messages", force: true do |t|
-=======
-<<<<<<< HEAD
-  create_table "messages", force: :cascade do |t|
-=======
-  create_table "messages", force: true do |t|
->>>>>>> e89905e35be3ac55d530aa03fdfc730ae044b89e
->>>>>>> 8481cb1a9cd71a4da2e589a4e2ea44dd44b348bf
+
     t.string   "messe"
     t.integer  "snsstudy_id"
     t.integer  "to_snsstudy_id"
@@ -31,15 +25,9 @@ ActiveRecord::Schema.define(version: 20150830074131) do
 
   add_index "messages", ["snsstudy_id", "created_at"], name: "index_messages_on_snsstudy_id_and_created_at"
 
-<<<<<<< HEAD
+
   create_table "relationships", force: true do |t|
-=======
-<<<<<<< HEAD
-  create_table "relationships", force: :cascade do |t|
-=======
-  create_table "relationships", force: true do |t|
->>>>>>> e89905e35be3ac55d530aa03fdfc730ae044b89e
->>>>>>> 8481cb1a9cd71a4da2e589a4e2ea44dd44b348bf
+
     t.integer  "follower_id"
     t.integer  "followed_id"
     t.datetime "created_at"
@@ -48,15 +36,9 @@ ActiveRecord::Schema.define(version: 20150830074131) do
 
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
 
-<<<<<<< HEAD
+
   create_table "snsstudies", force: true do |t|
-=======
-<<<<<<< HEAD
-  create_table "snsstudies", force: :cascade do |t|
-=======
-  create_table "snsstudies", force: true do |t|
->>>>>>> e89905e35be3ac55d530aa03fdfc730ae044b89e
->>>>>>> 8481cb1a9cd71a4da2e589a4e2ea44dd44b348bf
+
     t.string   "name"
     t.text     "introduction"
     t.datetime "created_at"
@@ -68,15 +50,9 @@ ActiveRecord::Schema.define(version: 20150830074131) do
 
   add_index "snsstudies", ["remember_token"], name: "index_snsstudies_on_remember_token"
 
-<<<<<<< HEAD
+
   create_table "tsubyakis", force: true do |t|
-=======
-<<<<<<< HEAD
-  create_table "tsubyakis", force: :cascade do |t|
-=======
-  create_table "tsubyakis", force: true do |t|
->>>>>>> e89905e35be3ac55d530aa03fdfc730ae044b89e
->>>>>>> 8481cb1a9cd71a4da2e589a4e2ea44dd44b348bf
+
     t.string   "content"
     t.integer  "snsstudy_id"
     t.datetime "created_at"

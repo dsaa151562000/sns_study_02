@@ -32,7 +32,7 @@ before_create :create_remember_token
  #大文字と小文字を区別するか case_sensitive false
  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: { case_sensitive: false }
 
- validates :password, length: { minimum: 6 }
+ validates :password, presence: true, length: { minimum: 6 }
 
 
 #自分自身とフォーローした人のつぶやき

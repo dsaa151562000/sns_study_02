@@ -39,24 +39,8 @@ end
 
   def create
 
-<<<<<<< HEAD
-
-    @message = Message.new(messages_params)
 
 
-
-     if  @message.save
-      
-      flash[:success] = 'success!'
-     #redirect_to :back
-     redirect_to :back
-      else
-      flash[:error] = 'error!'
-      redirect_to :back
-      end
-
-=======
-<<<<<<< HEAD
 
 
      @message = Message.new(messages_params)
@@ -71,13 +55,10 @@ end
       redirect_to :back 
       end
    end
-=======
-     @message = Message.new(messages_params)
-     @message.save
->>>>>>> f0a226a5f0d7598e558e6e26d59670cc94d14d32
 
-  end
->>>>>>> 8481cb1a9cd71a4da2e589a4e2ea44dd44b348bf
+
+
+
 
   def edit
 
