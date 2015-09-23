@@ -23,7 +23,7 @@ class Snsstudy < ActiveRecord::Base
 
 
  has_secure_password
-before_create :create_remember_token
+ before_create :create_remember_token
 
 #emailの大文字入力を小文字へ変換
  before_save { self.email = email.downcase }
@@ -33,7 +33,7 @@ before_create :create_remember_token
  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: { case_sensitive: false }
 
  validates :password, presence: true, length: { minimum: 6 }
-
+ validates :password_confirmation, presence: true, length: { minimum: 6 }
 
 #自分自身とフォーローした人のつぶやき
  def tsubyaki_matome
@@ -69,8 +69,11 @@ before_create :create_remember_token
     relationships.find_by(followed_id: other_user.id).destroy
  end
 
- def feed
+
+ def tsubuyaki_snsstudy
    Tsubyaki.where("user_id = ?", id)
+   #tsubyakis
+
  end
 
  private

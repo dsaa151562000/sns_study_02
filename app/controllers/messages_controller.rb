@@ -7,52 +7,36 @@ class MessagesController < ApplicationController
   def show
 
     @message = Message.new
-   @snsstudy = Snsstudy.find(params[:id])
-   @c_user=current_user
+    @snsstudy = Snsstudy.find(params[:id])
+    @c_user=current_user
+    #@mess = Message.includes(:snsstudy).where('snsstudies.id  IN (?,?)', @snsstudy,@c_user).where('snsstudies.id  IN (?,?)', @c_user,@snsstudy).order(:created_at).references(:snsstudy)
 
+   if @snsstudy == @c_user then
+    redirect_to(snsstudies_url) 
+   else
+    @mess = Message.includes(:snsstudy).where('snsstudies.id  IN (?,?)', @snsstudy,@c_user).where('snsstudies.id  IN (?,?)', @c_user,@snsstudy).order(:created_at).references(:snsstudy)
+   end
 
+    @snsstudy_id = [@snsstudy.id,@c_user.id]
+    @to_snsstudy_id = [@snsstudy.id,@c_user.id]
 
-#@mess = Message.includes(:snsstudy).where('snsstudies.id  IN (?,?)', @snsstudy,@c_user).where('snsstudies.id  IN (?,?)', @c_user,@snsstudy).order(:created_at).references(:snsstudy)
-
-if @snsstudy == @c_user then
-
-redirect_to(snsstudies_url) 
-else
-@mess = Message.includes(:snsstudy).where('snsstudies.id  IN (?,?)', @snsstudy,@c_user).where('snsstudies.id  IN (?,?)', @c_user,@snsstudy).order(:created_at).references(:snsstudy)
-end
-
-@snsstudy_id = [@snsstudy.id,@c_user.id]
-
-@to_snsstudy_id = [@snsstudy.id,@c_user.id]
-
-#@mess = Message.includes(:snsstudy).where('snsstudies.id  IN (?,?)', @snsstudy,@c_user).where('snsstudies.id  IN (?,?)', @c_user,@snsstudy).order(:created_at).references(:snsstudy)
-
-
+    #@mess = Message.includes(:snsstudy).where('snsstudies.id  IN (?,?)', @snsstudy,@c_user).where('snsstudies.id  IN (?,?)', @c_user,@snsstudy).order(:created_at).references(:snsstudy)
 
   end
 
   def new
-
        @message = Message.new
-
   end
 
   def create
 
-
-
-
-
      @message = Message.new(messages_params)
-
-    
-
      if  @message.save
        flash[:success] = "メッセージを投稿しました"
-      redirect_to :back 
+       redirect_to :back 
       else
-      flash[:error] = "メッセージを投稿してください"
-      redirect_to :back 
+       flash[:error] = "メッセージを投稿してください"
+       redirect_to :back 
       end
    end
 
