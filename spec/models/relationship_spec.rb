@@ -12,11 +12,11 @@ describe Relationship do
   #relationshipオブジェクトのバリデーションが成功
   it { should be_valid }
 
-  describe "follower methods" do
-    it { should respond_to(:follower) }     #relationship  obj にメソッド follower が定義されている
-    it { should respond_to(:followed) }     #relationship  obj にメソッド followed が定義されている
-    its(:follower) { should eq follower }
-    its(:followed) { should eq followed }
+  describe "フォロワーについて" do
+    it { should respond_to(:follower) }    #relationship  obj にメソッド follower が定義されている
+    it { should respond_to(:followed) }    #relationship  obj にメソッド followed が定義されている
+    its(:follower) { should eq follower }  #このfollowerは　belongs_to :follower, class_name: "Snsstudy"と同じ
+    its(:followed) { should eq followed }  #このfollowedは　belongs_to :followed, class_name: "Snsstudy"と同じ
   end
 end
 
