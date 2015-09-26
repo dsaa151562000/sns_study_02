@@ -18,7 +18,14 @@ class SnsstudiesController < ApplicationController
    @snsstudy = Snsstudy.find(params[:id])
    @tsubyakis = @snsstudy.tsubyakis.paginate(page: params[:page])
 
+  #つぶやきが連携されているかpで出力　ターミナルで中身を確認==================
+   @aa=Snsstudy.new
+   @bb=@aa.tsubuyaki_snsstudy(@snsstudy )
+   p @bb
 
+   hash = {"name"=>"鈴木", "age"=>30}
+   p(hash)
+  #=====================================================================
 
    #tsubyakiをbuildでオブジェクト化
    #@tsubyaki = current_user.tsubyakis.build if signed_in?

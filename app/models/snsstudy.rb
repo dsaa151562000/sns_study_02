@@ -69,11 +69,9 @@ class Snsstudy < ActiveRecord::Base
     relationships.find_by(followed_id: other_user.id).destroy
  end
 
-
- def tsubuyaki_snsstudy
-   Tsubyaki.where("user_id = ?", id)
-   #tsubyakis
-
+ #つぶやき連携の確認
+ def tsubuyaki_snsstudy(current)
+   Tsubyaki.where("snsstudy_id = ?", current.id)
  end
 
  private

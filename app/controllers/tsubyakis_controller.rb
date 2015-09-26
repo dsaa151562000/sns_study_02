@@ -1,6 +1,6 @@
 class TsubyakisController < ApplicationController
 
-before_action :signed_in_user, only: [:create, :destroy]
+ before_action :signed_in_user, only: [:create, :destroy]
  
   def index
 
@@ -15,11 +15,11 @@ before_action :signed_in_user, only: [:create, :destroy]
   @user2 = Snsstudy.find(params[:snsstudy][:id])
 
   if @tsubyaki.save
-      flash[:success] = "つぶやきが投稿されました"
-      redirect_to @user2
+     flash[:success] = "つぶやきが投稿されました"
+     redirect_to @user2
   else
-    flash[:error] = "何かつぶやいてください！"
-    redirect_to @user2
+     flash[:error] = "何かつぶやいてください！"
+     redirect_to @user2
   end
 
   end
@@ -29,7 +29,7 @@ before_action :signed_in_user, only: [:create, :destroy]
 
   end
 
-private
+ private
 
     def tsubyaki_params
       params.require(:tsubyaki).permit(:content)

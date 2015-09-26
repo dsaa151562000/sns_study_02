@@ -9,15 +9,29 @@ describe Relationship do
 
   #subject itの主題 relationshipオブジェクト
   subject { relationship }
-  #relationshipオブジェクトのバリデーションが成功
-  it { should be_valid }
 
-  describe "フォロワーについて" do
+
+  it { should be_valid }  #relationshipオブジェクトの生成が成功
+
+  it { should respond_to(:follower_id) }     #relationship  obj にメソッドfollower_idが定義されている
+  it { should respond_to(:followed_id) }     #relationship  obj にメソッドfollowed_idが定義されている
+
+  #follower_idの空白は無効
+  it { is_expected.to validate_presence_of(:follower_id) }
+
+  #followed_idの空白は無効
+  it { is_expected.to validate_presence_of(:followed_id) }
+
+
+  describe "フォロワーについて snsstudyとfollowerが連携　snsstudyとfollowedが連携している" do
     it { should respond_to(:follower) }    #relationship  obj にメソッド follower が定義されている
     it { should respond_to(:followed) }    #relationship  obj にメソッド followed が定義されている
-    its(:follower) { should eq follower }  #このfollowerは　belongs_to :follower, class_name: "Snsstudy"と同じ
-    its(:followed) { should eq followed }  #このfollowedは　belongs_to :followed, class_name: "Snsstudy"と同じ
+    its(:follower) { should eq follower }  #このfollowerは　belongs_to :follower, class_name: "Snsstudy" snsstudyと同じ
+    its(:followed) { should eq followed }  #このfollowedは　belongs_to :followed, class_name: "Snsstudy" snsstudyと同じ
   end
+
+
+
 end
 
 
