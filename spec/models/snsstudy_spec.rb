@@ -1,97 +1,66 @@
 require 'rails_helper'
 
-#describe Contact do
-# 有効なファクトリを持つこと it "has a valid factory" do
-#expect(FactoryGirl.build(:snsstudy)).to be_valid 
-#end
 
 describe Snsstudy do
- before do
+  #before do
    #newでオブジェクトを生成
-   @user = Snsstudy.new(name: "Example User", email: "user@example.com",password: "foobar", password_confirmation: "foobar")
- end
+   #@user = Snsstudy.new(name: "Example User", email: "user@example.com",password: "foobar", password_confirmation: "foobar")
+  #end
+
   #ファクトリーガールを使用してオブジェクトを生成
   let(:user) { FactoryGirl.create(:snsstudy) }
+
   #subject itの主題
-  subject { user }
+  #subject { user }
 
  #9つのexample
  #respond_to シンボルを引数として受け取り、そのメソッド（またはメンバ）をオブジェクトが保持している場合はtrueを、そうでない場合はfalseを返す。
- it { should respond_to(:name) }
- it { should respond_to(:email) }
- it { should respond_to(:password_digest) }
- it { should respond_to(:password) }
- it { should respond_to(:password_confirmation) }
- it { should respond_to(:remember_token) }
- it { should respond_to(:tsubyakis) }
- it { should respond_to(:relationships) }
- it { should respond_to(:followed_users) } #followed_users配列の元はfollowed idの集合である
+ it{ expect(user).to respond_to(:name) }
+ it{ expect(user).to respond_to(:email) }
+ it{ expect(user).to respond_to(:password_digest) }
+ it{ expect(user).to respond_to(:password) }
+ it{ expect(user).to respond_to(:password_confirmation) }
+ it{ expect(user).to respond_to(:remember_token) }
+ it{ expect(user).to respond_to(:tsubyakis) }
+ it{ expect(user).to respond_to(:relationships) }
+ it{ expect(user).to respond_to(:followed_users) }
+
 
 
 #バリデーションテスト-------------------------------------------------------------------
  #10個目のexample
- it { is_expected.to validate_presence_of(:name) }
-=begin
-　describe "nameの空白は無効" do
-    　before { 
-   　  user.name = " " 
-   　 }
-    it{ expect(user).not_to be_valid }
-    it { should_not be_valid }
-  end
-=end
+ it "nameの空白は無効" do
+   user3 = FactoryGirl.build(:snsstudy, name: nil)
+   expect(user3).not_to be_valid
+ end
 
  #11個目のexample
- it { is_expected.to validate_presence_of(:email) }
-=begin
- describe "emailの空白は無効" do
-    before { user.email = " " }
-    #it { should_not be_valid }
-    it{ expect(user).not_to be_valid }
-  end
-=end
+ it "nameの51文字以上の入力は無効" do
+   user3 = FactoryGirl.build(:snsstudy, name: "a"*51)
+   expect(user3).not_to be_valid
+ end
 
  #12個目のexample
- it { is_expected.to ensure_length_of(:name).is_at_most(50) }
-=begin
-describe "名前は50文字まで" do
-
-    before { user.name = "a" * 51 }
-    #it { should_not be_valid }
-    it{ expect(user).not_to be_valid }
-  end
-=end
-
+ it "emailの空白は無効" do
+   user3 = FactoryGirl.build(:snsstudy, email: nil)
+   expect(user3).not_to be_valid
+ end
 
  #13個目のexample
- it { is_expected.to validate_presence_of(:password) }
-=begin
-  describe "パスワードの空白は無効" do
-  
-    #before do
-      #@user = Snsstudy.new(name: "Example User", email: "user@example.com", password: " ", password_confirmation: " ")
-    #end
-      before { user.password = " "}
-      #it { should_not be_valid }
-      it{ expect(user).not_to be_valid }
-  end
-=end
- #14個目のexample
-  it { is_expected.to validate_presence_of(:password_confirmation) }
-=begin
-  describe "再確認のパスワードの空白は無効" do
-  
-    #before do
-      #@user = Snsstudy.new(name: "Example User", email: "user@example.com", password: " ", password_confirmation: " ")
-    #end
-      before { user.password_confirmation= " "}
-      it{ expect(user).not_to be_valid }
-  end
-=end
+ it "passwordの空白は無効" do
+   user3 = FactoryGirl.build(:snsstudy, password: nil)
+   expect(user3).not_to be_valid
+ end
 
- #15個目のexample
- it "メールアドレスの無効なフォーマット" do
-  invalid_emails = %w(
+ #14個目のexample
+ it "passwordの空白は無効" do
+   user3 = FactoryGirl.build(:snsstudy, password_confirmation: nil)
+   expect(user3).not_to be_valid
+ end
+
+ #15個目のexample   shoulda-matchersによるallow_value
+ it "invalid emails" do
+   invalid_emails = %w(
       user@foo,com
       user_at_foo.org
       example.user@foo.
@@ -99,89 +68,50 @@ describe "名前は50文字まで" do
       foo@bar+baz.com
       foo@bar..com
     )
-  is_expected.not_to allow_value(*invalid_emails).for(:email)
+   is_expected.not_to allow_value(*invalid_emails).for(:email)
  end
 
-=begin
-  describe "メールアドレスの無効なフォーマット" do
-    it "should be invalid" do
-      #%w 配列を作る。%w[foo bar baz] => ["foo", "bar", "baz"] 配列の要素はスペース区切りで指定する。
-      #無効なフォーマット
-      addresses = %w[user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo@bar+baz.com foo@bar..com]
-      #eachで配列の各要素をinvalid_addressへ
-      addresses.each do |invalid_address|
-        #@userのemailに格納
-        user.email = invalid_address
-        #@userは無効になる
-        expect(user).not_to be_valid
-      end
-    end
-  end
-=end
-
  #16個目のexample
- it { is_expected.to validate_uniqueness_of(:email) }
-=begin
-  describe "メールアドレスはユニークでなければならない" do
-    before do
-       # @user = Snsstudy.new(name: "Example User", email: "user@example.com",password: "foobar", password_confirmation: "foobar")
-      #dupメソッドは、レシーバのオブジェクトのコピーを作成して返します。
-      #user_with_same_email = @user.dup
-      #user_with_same_email.save
-      user_with_same_email = user.dup
-      user_with_same_email.save
+it "password_confirmationの空白は無効" do
+  user3 = FactoryGirl.build(:snsstudy, password_confirmation: nil)
+  expect(user3).not_to be_valid
+ end
 
-    #it { should_not be_valid }
-    it{ expect(user).not_to be_valid }
-    end
-
-  end
-=end
 
 #17個目のexample
  describe "記憶トークンが有効である (空欄のない)" do
-    before { 
-      @user = Snsstudy.new(name: "Example User", email: "user@example.com",password: "foobar", password_confirmation: "foobar")
-      @user.save }
-
-    it { expect(@user.remember_token).not_to be_blank }
-
+    let(:user) { FactoryGirl.create(:snsstudy) }
+    before { user.save }
+    it { expect(user.remember_token).not_to be_blank }
   end
 
 
 #つぶやきに関するテスト-------------------------------------------------------------------
-
-
- describe "tubuyakiの連携" do
-  before { @user.save }  
+ describe "tubuyakiの連携のテスト" do
+  let(:user) { FactoryGirl.create(:snsstudy) }
+  before { user.save }
    #ファクトリーガールでつぶやきオブジェクトを生成
    #let!とは example の実行前に let! で定義した値が作られるようになる。
    #let ではuser.tsubyakis が nil を返してしまい、テストが失敗する。nil と [newer_tsubyaki, older_tsubyaki]を比較しようとした瞬間にレコードがデータベースに保存されます）
   let!(:older_tsubyaki) do
-    FactoryGirl.create(:tsubyaki, snsstudy: @user, created_at: 1.day.ago)
+    FactoryGirl.create(:tsubyaki, snsstudy: user, created_at: 1.day.ago)
   end
 
   let!(:newer_tsubyaki) do
-    FactoryGirl.create(:tsubyaki, snsstudy: @user, created_at: 1.hour.ago)
+    FactoryGirl.create(:tsubyaki, snsstudy: user, created_at: 1.hour.ago)
   end
    
 
   #18個目のexample
   it "作成された日時で昇順になっているか" do
-    expect(@user.tsubyakis.to_a).to eq [newer_tsubyaki, older_tsubyaki]
+    expect(user.tsubyakis.to_a).to eq [newer_tsubyaki, older_tsubyaki]
   end
-     #it { should be_valid }
-     #18個目のexample
-     #it "作成された日時で昇順になっているか" do
-     #tsubyakis = @user.tsubyakis.to_a
-     #@user.destroy
-     #end
+
 
   #19個目のexample
   it "snstudyのユーザーが削除されたらtsubyakiも削除される" do
-    tsubyakis = @user.tsubyakis.to_a #to_a メソッドでつぶやきのコピーが作成されている
-    @user.destroy #ユーザーを削除
-
+    tsubyakis = user.tsubyakis.to_a #to_a メソッドでつぶやきのコピーが作成されている
+    user.destroy #ユーザーを削除
     expect(tsubyakis).not_to be_empty #to_aメソッドを付け忘れたときのエラーをすべてキャッチ
 
     tsubyakis.each do |tsubyaki|
@@ -189,7 +119,7 @@ describe "名前は50文字まで" do
     end
   end
      
-  describe "つぶやきに含まれるモノ" do
+   describe "つぶやきに含まれるモノ" do
     #ファクトリーでさらにユーザーオブジェクトと連携するつぶやきオブジェクトを生成　letで定義されたunfollowed_postへ
     let(:unfollowed_post) do
       FactoryGirl.create(:tsubyaki, snsstudy: FactoryGirl.create(:snsstudy))
@@ -197,47 +127,53 @@ describe "名前は50文字まで" do
 
     #20個目のexample
     it "tsubyaki_matomeは1日前の自分のつぶやきを含む" do
-      expect(@user.tsubyaki_matome).to include(older_tsubyaki)
+      expect(user.tsubyaki_matome).to include(older_tsubyaki)
     end
 
     #21個目のexample
     it "tsubyaki_matomeは1時間前の自分のつぶやきを含む" do
-      expect(@user.tsubyaki_matome).to include(newer_tsubyaki)
+      expect(user.tsubyaki_matome).to include(newer_tsubyaki)
     end
 
     #22個目のexample
     it "tsubyaki_matomeはフォローしていないユーザーのつぶやきを含まない" do
-      expect(@user.tsubyaki_matome).not_to include(unfollowed_post)
+      expect(user.tsubyaki_matome).not_to include(unfollowed_post)
       end
-   end
-
-  #フォローについて==================================================
-   it { should respond_to(:following?) }#userオブジェクト にメソッド following?が定義されている
-   it { should respond_to(:follow!) }   #userオブジェクト にメソッド ffollow!が定義されている
-
-   describe "following" do
-    let(:other_user) { FactoryGirl.create(:snsstudy) }#ファクトリーでユーザーオブジェクトを生成
-
-    before do
-      @user2 = Snsstudy.new(name: "Example User", email: "user@example.com",password: "foobar", password_confirmation: "foobar")
-      @user2.save #DBにユーザーを登録
     end
-    
-    subject { @user }
-    it { should respond_to(:followed_users) }
-
-     it"follow!で他のユーザーをフォローする"do
-       follow = @user.follow!(other_user) #@userからrelationshipsオブジェクトを生成しDBへ保存
-       expect(follow).to be_valid 
-
-     end
-
-     #followed_usersにはother_userが含まれる
-     its(:followed_users) { should include(other_user) }
-
-  end
-
-
-  end
 
  end
+
+
+ #フォローについて==================================================
+ describe "フォローについてのテスト" do
+   let(:user) { FactoryGirl.create(:snsstudy) }
+   before { user.save }
+
+     #23個目のexample
+     it{ expect(user).to respond_to(:following?) }#userオブジェクト にメソッド following?が定義されている
+     #24個目のexample
+     it{ expect(user).to respond_to(:follow!) }   #userオブジェクト にメソッド ffollow!が定義されている 
+
+    describe "following" do
+      let(:other_user) { FactoryGirl.create(:snsstudy) }#ファクトリーでユーザーオブジェクトを生成
+      before do
+        user.follow!(other_user) #userからrelationshipsオブジェクトを生成しDBへ保存
+      end
+
+     #25個目のexample
+      it{ expect(user).to respond_to(:followed_users) }
+     #26個目のexample
+      it"follow!で他のユーザーをフォローする"do
+        #user.followed_users.should include(other_user)  #followed_usersにはother_userが含まれる
+        #@aaa=u
+        #expect(user.followed_users).to include(other_user)
+       # expect(@aaa).to include(other_user)
+       end
+
+     #27個目のexample
+      it"other_userのフォロワーにはuserが含まれる"do
+        other_user.followers.should include(user)  
+     end
+ end
+
+end

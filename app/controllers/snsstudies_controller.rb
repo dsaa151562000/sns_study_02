@@ -21,11 +21,23 @@ class SnsstudiesController < ApplicationController
   #つぶやきが連携されているかpで出力　ターミナルで中身を確認==================
    @aa=Snsstudy.new
    @bb=@aa.tsubuyaki_snsstudy(@snsstudy )
-   p @bb
+   @cc=Relationship.all
+   
+   p "出力テスト"
+   p @cc
+   #p @bb
+   #p @aa.followed_users
+   #hash = {"name"=>"鈴木", "age"=>30}
+   #p(hash)
+   p "出力テスト"
 
-   hash = {"name"=>"鈴木", "age"=>30}
-   p(hash)
   #=====================================================================
+
+  #followed_usersの中身をターミナルで確認==================
+
+
+  #=====================================================================
+
 
    #tsubyakiをbuildでオブジェクト化
    #@tsubyaki = current_user.tsubyakis.build if signed_in?

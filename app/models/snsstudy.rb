@@ -74,6 +74,8 @@ class Snsstudy < ActiveRecord::Base
    Tsubyaki.where("snsstudy_id = ?", current.id)
  end
 
+
+
  private
  #remenber_tokenにselfを指定しないとremenber_tokenという名前のローカル変数を作成してしまう。selfを指定することによって、
  #Snsstudyオブジェクトのremember_tokenに値がセットされ、ユーザー保存時に他の属性と一緒にデータベースに書き込まれる。

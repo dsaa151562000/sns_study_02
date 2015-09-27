@@ -68,7 +68,7 @@ gem "capybara", "~> 2.4.3"
 gem "database_cleaner", "~> 1.3.0"
 gem "launchy", "~> 2.4.2"
 gem "selenium-webdriver", "~> 2.43.0"
-gem 'shoulda-matchers', '2.5.0'
+gem 'shoulda-matchers'
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
