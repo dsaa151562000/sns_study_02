@@ -30,7 +30,7 @@ describe Relationship do
     its(:follower) { should eq follower }  #このfollowerは　belongs_to :follower, class_name: "Snsstudy" snsstudyと同じ
     #it{ expect(follower).to eq(:follower) }
 
-    #its(:followed) { should eq followed }  #このfollowedは　belongs_to :followed, class_name: "Snsstudy" snsstudyと同じ
+    its(:followed) { should eq followed }  #このfollowedは　belongs_to :followed, class_name: "Snsstudy" snsstudyと同じ
 
     #its(:follower) { should eq follower }
     #its(:followed) { should eq followed }

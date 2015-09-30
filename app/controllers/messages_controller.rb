@@ -14,7 +14,8 @@ class MessagesController < ApplicationController
    if @snsstudy == @c_user then
     redirect_to(snsstudies_url) 
    else
-    @mess = Message.includes(:snsstudy).where('snsstudies.id  IN (?,?)', @snsstudy,@c_user).where('snsstudies.id  IN (?,?)', @c_user,@snsstudy).order(:created_at).references(:snsstudy)
+    #@mess = Message.includes(:snsstudy).where('snsstudies.id  IN (?,?)', @snsstudy,@c_user).where('snsstudies.id  IN (?,?)', @c_user,@snsstudy).order(:created_at).references(:snsstudy)
+    @mess= @message.mess
    end
 
     @snsstudy_id = [@snsstudy.id,@c_user.id]
