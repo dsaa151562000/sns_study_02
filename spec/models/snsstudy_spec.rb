@@ -15,15 +15,15 @@ describe Snsstudy do
 
  #9つのexample
  #respond_to シンボルを引数として受け取り、そのメソッド（またはメンバ）をオブジェクトが保持している場合はtrueを、そうでない場合はfalseを返す。
- it{ expect(user).to respond_to(:name) }
- it{ expect(user).to respond_to(:email) }
- it{ expect(user).to respond_to(:password_digest) }
- it{ expect(user).to respond_to(:password) }
- it{ expect(user).to respond_to(:password_confirmation) }
- it{ expect(user).to respond_to(:remember_token) }
- it{ expect(user).to respond_to(:tsubyakis) }
- it{ expect(user).to respond_to(:relationships) }
- it{ expect(user).to respond_to(:followed_users) }
+  it{ expect(user).to respond_to(:name) }
+  it{ expect(user).to respond_to(:email) }
+  it{ expect(user).to respond_to(:password_digest) }
+  it{ expect(user).to respond_to(:password) }
+  it{ expect(user).to respond_to(:password_confirmation) }
+  it{ expect(user).to respond_to(:remember_token) }
+  it{ expect(user).to respond_to(:tsubyakis) }
+  it{ expect(user).to respond_to(:relationships) }
+  it{ expect(user).to respond_to(:followed_users) }
 
 
 
@@ -144,15 +144,16 @@ it "password_confirmationの空白は無効" do
  end
 
 
- #フォローについて==================================================
+ #フォローに関するテスト==================================================
  describe "フォローについてのテスト" do
    let(:user) { FactoryGirl.create(:snsstudy) }
    before { user.save }
 
-     #23個目のexample
-     it{ expect(user).to respond_to(:following?) }#userオブジェクト にメソッド following?が定義されている
-     #24個目のexample
-     it{ expect(user).to respond_to(:follow!) }   #userオブジェクト にメソッド ffollow!が定義されている 
+     #23個目のexample  userオブジェクト にメソッド following?が定義されている
+     it{ expect(user).to respond_to(:following?) }
+
+     #24個目のexample  userオブジェクト にメソッド ffollow!が定義されている
+     it{ expect(user).to respond_to(:follow!) }   #
 
     describe "following" do
       let(:other_user) { FactoryGirl.create(:snsstudy) }#ファクトリーでユーザーオブジェクトを生成
@@ -162,18 +163,45 @@ it "password_confirmationの空白は無効" do
 
      #25個目のexample
       it{ expect(user).to respond_to(:followed_users) }
+
      #26個目のexample
       it"follow!で他のユーザーをフォローする"do
         #user.followed_users.should include(other_user)  #followed_usersにはother_userが含まれる
-        #@aaa=u
-        #expect(user.followed_users).to include(other_user)
-       # expect(@aaa).to include(other_user)
-       end
+        expect(user.followed_users).to include(other_user)
+      end
 
      #27個目のexample
-      it"other_userのフォロワーにはuserが含まれる"do
-        other_user.followers.should include(user)  
+      it"other_userのフォロワーにはuserが含まれる"do  #other_user.followersにはuserが含まれる
+        expect(other_user.followers).to include(user)
+      end
+
+   end
+
+    describe "フォーローしているユーザーの「つぶやき」と自分の「つぶやき」がまとめて含まれる" do
+
+      let(:unfollowed_tsubuyaki) do
+         #ファクトリーでつぶやきオブジェクトを生成　unfollowed_tsubuyakiに定義
+         FactoryGirl.create(:tsubyaki, snsstudy: FactoryGirl.create(:snsstudy))
+      end
+
+      #ファクトリーでsnsstudyオブジェクトを生成　followed_userに定義
+      let(:followed_user) { FactoryGirl.create(:snsstudy) }
+      before do
+         user.follow!(followed_user) #followed_userをフォロー
+         3.times { followed_user.tsubyakis.create!(content: "つぶやき") } #followed_userが3回つぶやく
+      end
+
+      #28個目のexample
+      it"tsubyaki_matomeには自分のつぶやきとフォロワーのつぶやきが含まれる"do
+        #p user.tsubyaki_matome
+        followed_user.tsubyakis.each do |tsubyaki|
+          #user.tsubyaki_matome.should include(tsubyaki)
+          expect(user.tsubyaki_matome).to include(tsubyaki)
+        end
      end
+
+    end
+
  end
 
 end
