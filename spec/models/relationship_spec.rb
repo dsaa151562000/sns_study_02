@@ -6,11 +6,8 @@ describe Relationship do
   let(:followed) { FactoryGirl.create(:snsstudy) }
   #followerと連携したrelationshipsオブジェクトを生成 followed_idはfollowedのidに
   let(:relationship) { follower.relationships.build(followed_id: followed.id) }
-  #subject itの主題 relationshipオブジェクト
-  subject { relationship }
-  #p follower.relationship
 
-  #it { should be_valid }  #relationshipオブジェクトの生成が成功
+
   #it { should respond_to(:follower_id) }     #relationship  obj にメソッドfollower_idが定義されている
   it{ expect(relationship).to respond_to(:follower_id) }
 
@@ -27,13 +24,10 @@ describe Relationship do
     it{ expect(relationship).to respond_to(:follower) }   #relationship  obj にメソッド follower が定義されている
     it{ expect(relationship).to respond_to(:followed) }   #relationship  obj にメソッド followed が定義されている
 
-    its(:follower) { should eq follower }  #このfollowerは　belongs_to :follower, class_name: "Snsstudy" snsstudyと同じ
-    #it{ expect(follower).to eq(:follower) }
 
-    its(:followed) { should eq followed }  #このfollowedは　belongs_to :followed, class_name: "Snsstudy" snsstudyと同じ
+    it { expect(relationship.follower).to eq(follower) } 
+    it { expect(relationship.followed).to eq(followed) } 
 
-    #its(:follower) { should eq follower }
-    #its(:followed) { should eq followed }
   end
 
 
