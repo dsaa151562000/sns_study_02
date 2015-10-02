@@ -21,12 +21,6 @@ describe Message do
      expect(maeesage2).not_to be_valid
    end
 
-   it "aaaa"do
-   
-
-   end
-
-
 
 # メッセージのやりとりのテスト
    it "is valid with a firstname, lastname and email" do
