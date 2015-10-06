@@ -19,9 +19,6 @@ class Snsstudy < ActiveRecord::Base
 
  has_many :messages, dependent: :destroy
 
-
-
-
  has_secure_password
  before_create :create_remember_token
 
@@ -73,7 +70,11 @@ class Snsstudy < ActiveRecord::Base
  def tsubuyaki_snsstudy(current)
    Tsubyaki.where("snsstudy_id = ?", current.id)
  end
-
+ 
+ #他のユーザーにメッセージを送る
+ def send_message(snsstudy,message)
+   self.messages.create(to_snsstudy_id: snsstudy , messe: message) 
+ end
 
 
  private

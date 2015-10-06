@@ -4,8 +4,8 @@ class Message < ActiveRecord::Base
 
    def self.mess(a,b)
     #Message.includes(:snsstudy).where('snsstudies.id  IN (?,?)', @snsstudy,@c_user).where('snsstudies.id  IN (?,?)', @c_user,@snsstudy).order(:created_at).references(:snsstudy)
-    Message.includes(:snsstudy).where('snsstudies.id  IN (?,?)', a,b).where('snsstudies.id  IN (?,?)', b,a).order(:created_at).references(:snsstudy)
-   end
+    #Message.includes(:snsstudy).where('snsstudies.id  IN (?,?)', a,b).where('snsstudies.id  IN (?,?)', b,a).order(:created_at).references(:snsstudy)
+    Message.includes(:snsstudy).where('snsstudies.id  IN (?,?)', a,b).order(:created_at).references(:snsstudy)
 
-  
+   end
 end

@@ -7,7 +7,7 @@ describe Message do
   let(:other_message) { FactoryGirl.create(:snsstudy) }
   let(:message) { from_message.messages.build(to_snsstudy_id: to_message.id, messe: "aaaaaaaaaa")}
   let(:message02) { to_message.messages.build(to_snsstudy_id: from_message.id, messe: "bbbbbbbbb")}
-  let(:message03) { other_message.messages.build(to_snsstudy_id: from_message.id, messe: "ccccccccc")}
+  let(:message03) { from_message.messages.build(to_snsstudy_id: other_message.id, messe: "ccccccccc")}
 
 
   before do
