@@ -1,4 +1,5 @@
 SnsStudy::Application.routes.draw do
+  devise_for :users
   resources :snsstudies do 
      member do
       get :following, :followers
