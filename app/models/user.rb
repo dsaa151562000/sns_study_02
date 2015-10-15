@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :validatable, :omniauthable
 
-def self.find_for_oauth(auth)
+
+  def self.find_for_oauth(auth)
     user = User.where(uid: auth.uid, provider: auth.provider).first
 
     unless user
@@ -23,5 +24,6 @@ def self.find_for_oauth(auth)
 
   def self.dummy_email(auth)
     "#{auth.uid}-#{auth.provider}@example.com"
-  end  
+  end
+
 end
