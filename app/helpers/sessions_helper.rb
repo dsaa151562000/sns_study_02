@@ -1,4 +1,5 @@
 module SessionsHelper
+
  def sign_in(user)
  	#SecureRandom.urlsafe_base64で生成
     remember_token = Snsstudy.new_remember_token
