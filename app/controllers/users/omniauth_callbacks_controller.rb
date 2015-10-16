@@ -17,8 +17,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.persisted?
       flash[:notice] = I18n.t('devise.omniauth_callbacks.success', kind: provider.capitalize)
       sign_in_and_redirect @user, event: :authentication
-              #sign_in(user)　引数に現在の@snsstudy  新しいユーザーを作成したらセッションも作成
-        
+      #sign_in(user)　引数に現在の@snsstudy  新しいユーザーを作成したらセッションも作成
     else
       session["devise.#{provider}_data"] = request.env['omniauth.auth']
       redirect_to new_user_registration_url
