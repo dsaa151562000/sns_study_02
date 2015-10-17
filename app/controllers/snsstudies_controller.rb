@@ -42,7 +42,9 @@ class SnsstudiesController < ApplicationController
    #hash = {"name"=>"鈴木", "age"=>30}
    #p(hash)
    p "出力テスト"
-
+   
+   #scdcsdcscsdcds
+   #cscscsdcsdc
 
 
 
