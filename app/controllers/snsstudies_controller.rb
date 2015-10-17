@@ -26,7 +26,7 @@ class SnsstudiesController < ApplicationController
    @aa=Snsstudy.new
    @bb=@aa.tsubuyaki_snsstudy(@snsstudy )
    @cc=Relationship.all
-   #dサダsダsダsdサdサsァs
+   #コンフリクト
    #
    #
    #
