@@ -14,6 +14,7 @@ class SnsstudiesController < ApplicationController
   def show
    @snsstudies = Snsstudy.all
    #コンフリクトコメント
+   #コンフリクトラスト
    #コンフリクト
    #コンフリクト
    #コンフリクト
