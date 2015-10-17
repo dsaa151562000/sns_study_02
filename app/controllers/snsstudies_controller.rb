@@ -26,7 +26,13 @@ class SnsstudiesController < ApplicationController
    @aa=Snsstudy.new
    @bb=@aa.tsubuyaki_snsstudy(@snsstudy )
    @cc=Relationship.all
-   
+   #
+   #
+   #
+   #
+   #
+   #コンフリクトテスト
+   #
    p "出力テスト"
    #tetetetetetetete
    #treteterterterter
