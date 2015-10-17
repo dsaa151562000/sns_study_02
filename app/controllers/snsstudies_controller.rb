@@ -28,7 +28,7 @@ class SnsstudiesController < ApplicationController
    @cc=Relationship.all
    #コンフリクト
    #
-   #
+   #テストコミット
    #
    #
    #コンフリクトテスト
