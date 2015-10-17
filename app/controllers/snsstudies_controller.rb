@@ -28,6 +28,8 @@ class SnsstudiesController < ApplicationController
    @cc=Relationship.all
    
    p "出力テスト"
+   #tetetetetetetete
+   #treteterterterter
    p @cc
    #p @bb
    #p @aa.followed_users
