@@ -34,12 +34,17 @@ class SnsstudiesController < ApplicationController
    #コンフリクトテスト
    #
    p "出力テスト"
+   #tetetetetetetete
+   #treteterterterter
    p @cc
    #p @bb
    #p @aa.followed_users
    #hash = {"name"=>"鈴木", "age"=>30}
    #p(hash)
    p "出力テスト"
+
+
+
 
   #=====================================================================
 
