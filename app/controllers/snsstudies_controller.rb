@@ -14,6 +14,9 @@ class SnsstudiesController < ApplicationController
   def show
    @snsstudies = Snsstudy.all
    #コンフリクトコメント
+   #コンフリクト
+   #コンフリクト
+   #コンフリクト
    @relation=Relationship.all
    #:idのユーザー(/snsstudies/2など。。)を@snsstudyに　
    @snsstudy = Snsstudy.find(params[:id])
