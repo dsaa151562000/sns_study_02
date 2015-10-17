@@ -14,6 +14,9 @@ class SnsstudiesController < ApplicationController
   def show
    @snsstudies = Snsstudy.all
    #コンフリクトコメント
+
+
+   
    @relation=Relationship.all
    #:idのユーザー(/snsstudies/2など。。)を@snsstudyに　
    @snsstudy = Snsstudy.find(params[:id])
@@ -31,7 +34,7 @@ class SnsstudiesController < ApplicationController
    #hash = {"name"=>"鈴木", "age"=>30}
    #p(hash)
    p "出力テスト"
-  p "出力テスト"
+
 
 
 
