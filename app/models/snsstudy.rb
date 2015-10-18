@@ -1,6 +1,8 @@
 class Snsstudy < ActiveRecord::Base
  before_create :create_remember_token
+
  has_many :tsubyakis, dependent: :destroy
+ belongs_to :user
 
 #relationshipsのfollower_idを使用するのでforeign_keyで明示する　 follower_id=snsstudies_id
  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
@@ -79,8 +81,9 @@ class Snsstudy < ActiveRecord::Base
 
  private
  #remenber_tokenにselfを指定しないとremenber_tokenという名前のローカル変数を作成してしまう。selfを指定することによって、
- #Snsstudyオブジェクトのremember_tokenに値がセットされ、ユーザー保存時に他の属性と一緒にデータベースに書き込まれる。
-
+ #Snsstudyオブジェクトのremember_tokenに値がセットされ、ユーザー保存時に他の属性と一緒にデータベースに書き込まれる
+ #(ローカル変数ではなく、DBにしっかりと保存されるようにする。)
+ 
  def create_remember_token
    self.remember_token = Snsstudy.encrypt(Snsstudy.new_remember_token)
 
