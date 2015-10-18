@@ -15,6 +15,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     @user = User.find_for_oauth(request.env['omniauth.auth'])
 
+
+
+
     #persisted?メソッドについて.persisted?は、レシーバがデータベースに保存済みかどうかを確認する。
     if @user.persisted?
       flash[:notice] = I18n.t('devise.omniauth_callbacks.success', kind: provider.capitalize)
