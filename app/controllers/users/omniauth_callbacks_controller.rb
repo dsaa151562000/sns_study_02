@@ -12,11 +12,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def callback_from(provider)
   	#配列を文字列に変換
     provider = provider.to_s
-
     @user = User.find_for_oauth(request.env['omniauth.auth'])
-
-
-
 
     #persisted?メソッドについて.persisted?は、レシーバがデータベースに保存済みかどうかを確認する。
     if @user.persisted?

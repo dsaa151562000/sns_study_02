@@ -22,7 +22,7 @@ class Snsstudy < ActiveRecord::Base
  has_many :messages, dependent: :destroy
 
  has_secure_password
- before_create :create_remember_token
+ #before_create :create_remember_token
 
 #emailの大文字入力を小文字へ変換
  before_save { self.email = email.downcase }
