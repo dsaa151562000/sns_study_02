@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
- before_create :create_remember_token
+ #before_create :create_remember_token
 
   #outh認証(User)はユーザー(snsstudy)を１つ持つ
   has_one :snsstudy, dependent: :destroy
