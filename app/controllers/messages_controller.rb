@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
 
   def index
-sssssssssss
+sdsdsadas
   end
 
   def show
