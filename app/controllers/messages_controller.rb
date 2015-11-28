@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
 
   def index
 
-sasafffffffffff
+先に修正してみた！
 
 
   def show
