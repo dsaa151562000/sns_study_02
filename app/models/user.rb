@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   #outh認証(User)はユーザー(snsstudy)を１つ持つ
   has_one :snsstudy, dependent: :destroy
 
-  #has_secure_password
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,:recoverable, :rememberable, :trackable, :validatable, :validatable, :omniauthable
@@ -14,22 +14,26 @@ class User < ActiveRecord::Base
   def self.find_for_oauth(auth)
     user = User.where(uid: auth.uid, provider: auth.provider).first
 
-#p "----------authの値を出力---------"
-#p auth
-#p "----------authの値を出力---------"
+p "----------authの値を出力---------"
+p auth.info.name
+p "----------authの値を出力---------"
 
     unless user
+      @mail="aaaa.@test.com"
       user = User.create(
         uid:      auth.uid,
         provider: auth.provider,
         #email:    auth.email,
-        email:   auth.info.email,
+        email:   @mail,
         #email:    User.dummy_email(auth),
         #password_digest: Devise.friendly_token[0, 20],
         introduction: User.introduction(auth),
-        remember_token:User.remember_token,
+        #remember_token:User.remember_token,
+        #encrypted_password:pass(auth)
         password:User.pass(auth), 
         password_confirmation:User.pass(auth)
+
+        #password_digest: User.password_digest("dsadasasdasd")
       )
 
 
@@ -68,6 +72,8 @@ class User < ActiveRecord::Base
    def self.pass2(auth)
      "$2a$10$d7xyamX2bnHYEbbr13jBGe1JRz0j58z3g39DfUoa5wiZCXDzyuehi"
    end
+
+
 
   #=======================================unless user　テスト用メソッド
 
